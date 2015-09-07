@@ -1,6 +1,5 @@
 package omg.mycore;
 
-import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -15,6 +14,11 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.util.Currency;
+import java.util.Locale;
+
 /**
  * Created by kongsin on 9/7/15.
  */
@@ -27,6 +31,7 @@ public class Core {
     private TextView title, details;
     private EditText editText;
     private static Core core;
+    private NumberFormat numberFormat;
 
     Core(Context context) {
         this.context = context;
@@ -215,7 +220,7 @@ public class Core {
         }
     }
 
-    public static boolean isServiceRunning(Context context,Class<?> serviceClass) {
+    public static boolean isServiceRunning(Context context, Class<?> serviceClass) {
         ActivityManager manager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
         for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
             if (serviceClass.getName().equals(service.service.getClassName())) {
@@ -225,8 +230,8 @@ public class Core {
         return false;
     }
 
-    public static boolean isNetworkConnected(Context context){
-        ConnectivityManager cm = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
+    public static boolean isNetworkConnected(Context context) {
+        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
         return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
     }
@@ -241,6 +246,57 @@ public class Core {
         double a = Math.pow(Math.sin(dLat / 2), 2) + Math.pow(Math.sin(dLon / 2), 2) * Math.cos(lat1) * Math.cos(lat2);
         double c = 2 * Math.asin(Math.sqrt(a));
         return R * c;
+    }
+
+    public String numberCurrency(long number, Locale locale) {
+        numberFormat = NumberFormat.getCurrencyInstance(locale);
+        return numberFormat.format(number);
+    }
+
+    public String numberCurrency(int number, Locale locale) {
+        numberFormat = NumberFormat.getCurrencyInstance(locale);
+        return numberFormat.format(number);
+    }
+
+    public String numberCurrency(double number, Locale locale) {
+        numberFormat = NumberFormat.getCurrencyInstance(locale);
+        return numberFormat.format(number);
+    }
+
+    public String numberCurrency(float number, Locale locale) {
+        numberFormat = NumberFormat.getCurrencyInstance(locale);
+        return numberFormat.format(number);
+    }
+
+    public String numberInstance(long number, Locale locale) {
+        numberFormat = NumberFormat.getNumberInstance(locale);
+        return numberFormat.format(number);
+    }
+
+    public String numberInstance(int number, Locale locale) {
+        numberFormat = NumberFormat.getNumberInstance(locale);
+        return numberFormat.format(number);
+    }
+
+    public String numberInstance(double number) {
+        numberFormat = new DecimalFormat("###,###,##0.00");
+        return numberFormat.format(number);
+    }
+
+    public String numberInstance(float number) {
+        numberFormat = new DecimalFormat("###,###,##0.00");
+        return numberFormat.format(number);
+    }
+
+    public String formattingNumber(double number, String pattern){
+        numberFormat = new DecimalFormat(pattern);
+        return numberFormat.format(number);
+    }
+
+    public String formattingNumber(double number, String pattern, Locale locale){
+        numberFormat = new DecimalFormat(pattern);
+        numberFormat.setCurrency(Currency.getInstance(locale));
+        return numberFormat.format(number);
     }
 
     public interface MultiChoiceDialogListener {
@@ -263,6 +319,7 @@ public class Core {
 
     public interface OnInputDialogCloseListener {
         void onOK(String value);
+
         void onCancel();
     }
 

@@ -8,7 +8,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
+
+import java.util.Locale;
 
 public class TesLibrary extends AppCompatActivity {
 
@@ -20,7 +23,7 @@ public class TesLibrary extends AppCompatActivity {
         Core.getInstance(this).singleInputDialog("input", "Please input", new Core.OnInputDialogCloseListener() {
             @Override
             public void onOK(String value) {
-                Toast.makeText(TesLibrary.this,""+value,Toast.LENGTH_SHORT).show();
+                Toast.makeText(TesLibrary.this, "" + value, Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -132,6 +135,10 @@ public class TesLibrary extends AppCompatActivity {
                 });
             }
         });
+
+        EditText editText = (EditText) findViewById(R.id.editText);
+        editText.setText(Core.getInstance(this).numberCurrency(12000,new Locale("th_TH")));
+
     }
 
     @Override
