@@ -10,7 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+public class TesLibrary extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
         Core.getInstance(this).singleInputDialog("input", "Please input", new Core.OnInputDialogCloseListener() {
             @Override
             public void onOK(String value) {
-                Toast.makeText(MainActivity.this,""+value,Toast.LENGTH_SHORT).show();
+                Toast.makeText(TesLibrary.this,""+value,Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -33,17 +33,17 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Core.getInstance(MainActivity.this).showAlertDialog("Title", "Details", new DialogInterface.OnClickListener() {
+                Core.getInstance(TesLibrary.this).showAlertDialog("Title", "Details", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
-                        Core.getInstance(MainActivity.this).showProgressDialog("Loading", "Please wait", true, null);
+                        Core.getInstance(TesLibrary.this).showProgressDialog("Loading", "Please wait", true, null);
                         new Thread(new Runnable() {
                             @Override
                             public void run() {
                                 try {
                                     Thread.sleep(5000);
-                                    Core.getInstance(MainActivity.this).removeProgressDialog(new DialogInterface.OnDismissListener() {
+                                    Core.getInstance(TesLibrary.this).removeProgressDialog(new DialogInterface.OnDismissListener() {
                                         @Override
                                         public void onDismiss(DialogInterface dialog) {
 
@@ -63,15 +63,15 @@ public class MainActivity extends AppCompatActivity {
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Core.getInstance(MainActivity.this).showConfirmDialog("Delete", "Are you sure to delete", new Core.ConfirmDialogListener() {
+                Core.getInstance(TesLibrary.this).showConfirmDialog("Delete", "Are you sure to delete", new Core.ConfirmDialogListener() {
                     @Override
                     public void confirm() {
-                        Toast.makeText(MainActivity.this, "Confirm", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(TesLibrary.this, "Confirm", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void cancel() {
-                        Toast.makeText(MainActivity.this, "Cancel", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(TesLibrary.this, "Cancel", Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -82,10 +82,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 final String[] val = {"A", "C", "D", "E"};
-                Core.getInstance(MainActivity.this).showListDialog("List", null, val, new DialogInterface.OnClickListener() {
+                Core.getInstance(TesLibrary.this).showListDialog("List", null, val, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(MainActivity.this, val[which].toString(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(TesLibrary.this, val[which].toString(), Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 final String[] val = {"A", "C", "D", "E"};
-                Core.getInstance(MainActivity.this).showListDialogSingleChoice("List", null, val, new Core.SingleChoiceDialogListener() {
+                Core.getInstance(TesLibrary.this).showListDialogSingleChoice("List", null, val, new Core.SingleChoiceDialogListener() {
                     @Override
                     public void confirm(int choice) {
                         Log.d("Select", val[choice]);
@@ -115,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 final String[] val = {"A", "C", "D", "E"};
-                Core.getInstance(MainActivity.this).showListDialogMultiChoice("List", null, val, new Core.MultiChoiceDialogListener() {
+                Core.getInstance(TesLibrary.this).showListDialogMultiChoice("List", null, val, new Core.MultiChoiceDialogListener() {
                     @Override
                     public void confirm(boolean[] choice) {
                         for (int i = 0; i < choice.length; i++) {
