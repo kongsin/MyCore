@@ -16,6 +16,19 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Core.getInstance(this).singleInputDialog("input", "Please input", new Core.OnInputDialogCloseListener() {
+            @Override
+            public void onOK(String value) {
+                Toast.makeText(MainActivity.this,""+value,Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onCancel() {
+
+            }
+        });
+
         Button button = (Button) findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,11 +81,11 @@ public class MainActivity extends AppCompatActivity {
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final String [] val= {"A","C","D","E"};
+                final String[] val = {"A", "C", "D", "E"};
                 Core.getInstance(MainActivity.this).showListDialog("List", null, val, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(MainActivity.this,val[which].toString(),Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, val[which].toString(), Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -82,11 +95,11 @@ public class MainActivity extends AppCompatActivity {
         btn4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final String [] val= {"A","C","D","E"};
+                final String[] val = {"A", "C", "D", "E"};
                 Core.getInstance(MainActivity.this).showListDialogSingleChoice("List", null, val, new Core.SingleChoiceDialogListener() {
                     @Override
                     public void confirm(int choice) {
-                        Log.d("Select",val[choice]);
+                        Log.d("Select", val[choice]);
                     }
 
                     @Override
@@ -106,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void confirm(boolean[] choice) {
                         for (int i = 0; i < choice.length; i++) {
-                            if(choice[i]) {
+                            if (choice[i]) {
                                 Log.d("Select", val[i]);
                             }
                         }
